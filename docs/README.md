@@ -27,6 +27,13 @@ This index tracks all project documentation artifacts.
 - Phase 10 Technical Implementation: [phase-10/technical-implementation.md](phase-10/technical-implementation.md)
 - Phase 11 Orchestration and Monitoring: [phase-11/orchestration-and-monitoring.md](phase-11/orchestration-and-monitoring.md)
 - Phase 11 Technical Implementation: [phase-11/technical-implementation.md](phase-11/technical-implementation.md)
+- Phase 12 Thesis Defense Narrative: [phase-12/thesis-defense-narrative.md](phase-12/thesis-defense-narrative.md)
+- Phase 12 Final Demo Script: [phase-12/final-demo-script.md](phase-12/final-demo-script.md)
+- Phase 12 Final Q&A Strategy: [phase-12/final-qa-strategy.md](phase-12/final-qa-strategy.md)
+- Phase 12 Reproducibility Evidence: [phase-12/reproducibility-evidence.md](phase-12/reproducibility-evidence.md)
+- Phase 12 Operational Runbook: [phase-12/operational-runbook.md](phase-12/operational-runbook.md)
+- Phase 12 Defense Package Checklist: [phase-12/defense-package-checklist.md](phase-12/defense-package-checklist.md)
+- Phase 12 Technical Implementation: [phase-12/technical-implementation.md](phase-12/technical-implementation.md)
 
 ## Program-level documents
 - Project Defense and Implementation Playbook: [project-defense-and-implementation-playbook.md](project-defense-and-implementation-playbook.md)
