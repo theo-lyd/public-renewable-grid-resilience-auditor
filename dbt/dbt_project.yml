@@ -1,0 +1,30 @@
+name: "grid_resilience_auditor"
+version: "1.0.0"
+config-version: 2
+
+profile: "grid_resilience_auditor"
+
+model-paths: ["models"]
+macro-paths: ["macros"]
+seed-paths: ["seeds"]
+snapshot-paths: ["snapshots"]
+analysis-paths: ["analyses"]
+
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+models:
+  grid_resilience_auditor:
+    +materialized: view
+    staging:
+      +schema: staging
+    intermediate:
+      +schema: intermediate
+    dimensions:
+      +schema: dimensions
+    facts:
+      +schema: facts
+    marts:
+      +schema: marts

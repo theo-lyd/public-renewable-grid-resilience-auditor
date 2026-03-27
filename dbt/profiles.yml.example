@@ -1,0 +1,7 @@
+grid_resilience_auditor:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: ../data/processed/grid_resilience.duckdb
+      threads: 4

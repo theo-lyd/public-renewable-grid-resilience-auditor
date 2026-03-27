@@ -1,0 +1,5 @@
+# Optional stack for orchestration phases (install when needed)
+# Install with:
+#   pip install -r requirements-orchestration.txt
+
+apache-airflow>=2.10.0,<3.0.0
