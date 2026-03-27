@@ -19,6 +19,8 @@ This index tracks all project documentation artifacts.
 - Phase 6 Technical Implementation: [phase-6/technical-implementation.md](phase-6/technical-implementation.md)
 - Phase 7 Dimensions and Facts Modeling: [phase-7/dimensions-and-facts-modeling.md](phase-7/dimensions-and-facts-modeling.md)
 - Phase 7 Technical Implementation: [phase-7/technical-implementation.md](phase-7/technical-implementation.md)
+- Phase 8 Gold Marts and KPI Scorecards: [phase-8/gold-marts-and-kpi-scorecards.md](phase-8/gold-marts-and-kpi-scorecards.md)
+- Phase 8 Technical Implementation: [phase-8/technical-implementation.md](phase-8/technical-implementation.md)
 
 ## Program-level documents
 - Project Defense and Implementation Playbook: [project-defense-and-implementation-playbook.md](project-defense-and-implementation-playbook.md)

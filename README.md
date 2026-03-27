@@ -22,6 +22,8 @@ Public-sector analytics capstone using DuckDB + Parquet to monitor renewable int
 	- `make dbt-intermediate`
 9. Run dimensions/facts quality gates (Phase 7):
 	- `make dbt-dimensions-facts`
+10. Run Gold marts and scorecard quality gates (Phase 8):
+	- `make dbt-marts`
 
 Notes:
 - Bronze writes are idempotent by operation key (same request window + params will be skipped if already written).

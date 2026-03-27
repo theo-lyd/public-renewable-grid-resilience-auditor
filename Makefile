@@ -2,7 +2,7 @@ PYTHON ?= python3
 PIP ?= $(PYTHON) -m pip
 DBT ?= $(dir $(PYTHON))dbt
 
-.PHONY: bootstrap bootstrap-orchestration lint format test check smoke contracts ingest-open-meteo-mock ingest-ember-mock ingest-entsoe-mock ingest-mock dbt-seed dbt-build-staging dbt-test-staging dbt-staging dbt-build-intermediate dbt-test-intermediate dbt-intermediate dbt-build-dimensions-facts dbt-test-dimensions-facts dbt-dimensions-facts
+.PHONY: bootstrap bootstrap-orchestration lint format test check smoke contracts ingest-open-meteo-mock ingest-ember-mock ingest-entsoe-mock ingest-mock dbt-seed dbt-build-staging dbt-test-staging dbt-staging dbt-build-intermediate dbt-test-intermediate dbt-intermediate dbt-build-dimensions-facts dbt-test-dimensions-facts dbt-dimensions-facts dbt-build-marts dbt-test-marts dbt-marts
 
 bootstrap:
 	$(PIP) install --upgrade pip
@@ -68,3 +68,11 @@ dbt-test-dimensions-facts:
 	DBT_PROFILES_DIR=dbt $(DBT) test --project-dir dbt --select models/dimensions/** models/facts/** test_dim_* test_fact_*
 
 dbt-dimensions-facts: dbt-seed dbt-build-dimensions-facts dbt-test-dimensions-facts
+
+dbt-build-marts:
+	DBT_PROFILES_DIR=dbt $(DBT) build --project-dir dbt --select models/marts/**
+
+dbt-test-marts:
+	DBT_PROFILES_DIR=dbt $(DBT) test --project-dir dbt --select models/marts/** test_mart_*
+
+dbt-marts: dbt-seed dbt-build-marts dbt-test-marts

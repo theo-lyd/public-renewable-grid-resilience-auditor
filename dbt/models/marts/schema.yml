@@ -1,0 +1,62 @@
+version: 2
+
+models:
+  - name: mart_zone_hour_kpi_scorecard
+    description: Zone-hour Gold scorecard with KPI proxy calculations and stress thresholds.
+    columns:
+      - name: zone_hour_key
+        tests:
+          - not_null
+          - unique
+      - name: zone_code
+        tests:
+          - not_null
+      - name: timestamp_hour_utc
+        tests:
+          - not_null
+      - name: renewable_share_pct
+        tests:
+          - not_null
+      - name: stress_band
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['low', 'moderate', 'high', 'critical']
+
+  - name: mart_zone_day_kpi_scorecard
+    description: Zone-day KPI scorecard with aggregation-safe ratio recomputation.
+    columns:
+      - name: zone_day_key
+        tests:
+          - not_null
+          - unique
+      - name: zone_code
+        tests:
+          - not_null
+      - name: date_utc
+        tests:
+          - not_null
+      - name: renewable_share_pct
+        tests:
+          - not_null
+      - name: carbon_intensity_proxy_tco2_per_mwh
+        tests:
+          - not_null
+
+  - name: mart_zone_day_resilience_composite
+    description: Zone-day normalized composite resilience scores with sensitivity variants.
+    columns:
+      - name: zone_day_key
+        tests:
+          - not_null
+          - unique
+      - name: resilience_composite_baseline
+        tests:
+          - not_null
+      - name: resilience_composite_security_heavy
+        tests:
+          - not_null
+      - name: resilience_composite_transition_heavy
+        tests:
+          - not_null
