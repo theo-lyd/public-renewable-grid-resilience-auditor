@@ -22,6 +22,10 @@ git status --short --branch
 find docs -maxdepth 3 -type f | sort
 grep -n "## KPI [1-8])" docs/phase-1/kpi-dictionary.md
 git status --short --branch
+git add README.md docs
+git commit -m "docs(phase-1): add charter, KPI dictionary, checklist, and implementation log"
+git push origin master
+git status --short --branch
 ```
 
 Notes:
@@ -53,7 +57,8 @@ Non-blocking external issue:
 ## 6) Output state
 - Phase 1 documentation baseline is present and internally aligned.
 - Docs index exists and is linked from root README.
-- Repository is ready for phase-specific commit and remote push.
+- Phase 1 commit pushed to remote: `5679918` on `master`.
+- Repository is clean and in sync with `origin/master`.
 
 ## 7) Requirement-to-reality gap log
 At time of drafting this document, no blocking implementation conflict identified.
