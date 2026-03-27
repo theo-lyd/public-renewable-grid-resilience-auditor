@@ -2,7 +2,7 @@ PYTHON ?= python3
 PIP ?= $(PYTHON) -m pip
 DBT ?= $(dir $(PYTHON))dbt
 
-.PHONY: bootstrap bootstrap-orchestration lint format test check smoke contracts ingest-open-meteo-mock ingest-ember-mock ingest-entsoe-mock ingest-mock dbt-seed dbt-build-staging dbt-test-staging dbt-staging dbt-build-intermediate dbt-test-intermediate dbt-intermediate dbt-build-dimensions-facts dbt-test-dimensions-facts dbt-dimensions-facts dbt-build-marts dbt-test-marts dbt-marts forecast-phase9 dashboard-smoke dashboard-run monitor-phase11
+.PHONY: bootstrap bootstrap-orchestration lint format test check smoke contracts ingest-open-meteo-mock ingest-ember-mock ingest-entsoe-mock ingest-mock dbt-seed dbt-build-staging dbt-test-staging dbt-staging dbt-build-intermediate dbt-test-intermediate dbt-intermediate dbt-build-dimensions-facts dbt-test-dimensions-facts dbt-dimensions-facts dbt-build-marts dbt-test-marts dbt-marts forecast-phase9 dashboard-smoke dashboard-run monitor-phase11 late-arrival-smoke security-smoke benchmark-performance
 
 bootstrap:
 	$(PIP) install --upgrade pip
@@ -43,7 +43,7 @@ ingest-entsoe-mock:
 ingest-mock: ingest-open-meteo-mock ingest-ember-mock ingest-entsoe-mock
 
 dbt-seed:
-	DBT_PROFILES_DIR=dbt $(DBT) seed --project-dir dbt --select zone_conformance_mapping
+	DBT_PROFILES_DIR=dbt $(DBT) seed --full-refresh --project-dir dbt --select zone_conformance_mapping zone_conformance_mapping_history
 
 dbt-build-staging:
 	DBT_PROFILES_DIR=dbt $(DBT) build --project-dir dbt --select models/staging/**
@@ -88,3 +88,12 @@ dashboard-run:
 
 monitor-phase11:
 	$(PYTHON) -m src.monitoring.phase11_monitoring
+
+late-arrival-smoke:
+	$(PYTHON) -m src.ingestion.late_arrival
+
+security-smoke:
+	$(PYTHON) -m src.common.security_controls
+
+benchmark-performance:
+	$(PYTHON) -m src.common.performance_benchmark

@@ -34,6 +34,8 @@ This index tracks all project documentation artifacts.
 - Phase 12 Operational Runbook: [phase-12/operational-runbook.md](phase-12/operational-runbook.md)
 - Phase 12 Defense Package Checklist: [phase-12/defense-package-checklist.md](phase-12/defense-package-checklist.md)
 - Phase 12 Technical Implementation: [phase-12/technical-implementation.md](phase-12/technical-implementation.md)
+- Post-Phase-12 Advanced Interview Hardening: [phase-12/advanced-interview-hardening.md](phase-12/advanced-interview-hardening.md)
+- Post-Phase-12 Hardening Technical Implementation: [phase-12/hardening-technical-implementation.md](phase-12/hardening-technical-implementation.md)
 
 ## Program-level documents
 - Project Defense and Implementation Playbook: [project-defense-and-implementation-playbook.md](project-defense-and-implementation-playbook.md)

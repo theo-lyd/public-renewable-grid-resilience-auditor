@@ -32,6 +32,12 @@ Public-sector analytics capstone using DuckDB + Parquet to monitor renewable int
 	- `make dashboard-run`
 14. Run orchestration and monitoring policy checks (Phase 11):
 	- `make monitor-phase11`
+15. Run late-arrival handling smoke check (post-Phase-12 hardening):
+	- `make late-arrival-smoke`
+16. Run security controls smoke check (post-Phase-12 hardening):
+	- `make security-smoke`
+17. Run performance benchmark smoke check (post-Phase-12 hardening):
+	- `make benchmark-performance`
 
 Notes:
 - Bronze writes are idempotent by operation key (same request window + params will be skipped if already written).

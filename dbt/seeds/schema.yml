@@ -1,0 +1,23 @@
+version: 2
+
+seeds:
+  - name: zone_conformance_mapping
+    config:
+      column_types:
+        zone_code: varchar
+        country_code: varchar
+        latitude: double
+        longitude: double
+        timezone_name: varchar
+
+  - name: zone_conformance_mapping_history
+    config:
+      column_types:
+        zone_code: varchar
+        mapping_status: varchar
+        country_code: varchar
+        latitude: double
+        longitude: double
+        timezone_name: varchar
+        valid_from: date
+        valid_to: date
