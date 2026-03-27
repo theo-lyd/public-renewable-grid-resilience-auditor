@@ -14,6 +14,9 @@ This index tracks all project documentation artifacts.
 - Phase 4 Raw Ingestion Bronze Jobs: [phase-4/raw-ingestion-bronze-jobs.md](phase-4/raw-ingestion-bronze-jobs.md)
 - Phase 4 Technical Implementation: [phase-4/technical-implementation.md](phase-4/technical-implementation.md)
 
+## Program-level documents
+- Project Defense and Implementation Playbook: [project-defense-and-implementation-playbook.md](project-defense-and-implementation-playbook.md)
+
 ## Standards
 - Technical implementation document is required for every phase.
 - Update this index whenever a new documentation file is created.
