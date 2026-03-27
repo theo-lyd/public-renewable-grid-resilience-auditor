@@ -1,0 +1,72 @@
+version: 2
+
+models:
+  - name: fct_zone_hour_resilience_inputs
+    description: Zone-hour resilience input fact with harmonized generation and weather metrics.
+    columns:
+      - name: zone_hour_fact_key
+        tests:
+          - not_null
+          - unique
+      - name: zone_hour_key
+        tests:
+          - not_null
+          - unique
+      - name: zone_key
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_zone')
+                field: zone_key
+      - name: time_hour_key
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_time_hourly')
+                field: time_hour_key
+      - name: quality_flag
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['ok', 'unmapped_zone']
+
+  - name: fct_zone_hour_fuel_generation
+    description: Zone-hour fuel generation fact normalized to MWh.
+    columns:
+      - name: zone_hour_fuel_fact_key
+        tests:
+          - not_null
+          - unique
+      - name: zone_key
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_zone')
+                field: zone_key
+      - name: time_hour_key
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_time_hourly')
+                field: time_hour_key
+      - name: fuel_category_key
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_fuel_category')
+                field: fuel_category_key
+      - name: source_system_key
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_source_system')
+                field: source_system_key
+      - name: generation_mwh
+        tests:
+          - not_null

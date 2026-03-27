@@ -1,0 +1,56 @@
+version: 2
+
+models:
+  - name: dim_time_hourly
+    description: Time dimension at canonical UTC hour grain.
+    columns:
+      - name: time_hour_key
+        tests:
+          - not_null
+          - unique
+      - name: timestamp_hour_utc
+        tests:
+          - not_null
+          - unique
+
+  - name: dim_zone
+    description: Zone dimension with mapping conformance status.
+    columns:
+      - name: zone_key
+        tests:
+          - not_null
+          - unique
+      - name: zone_code
+        tests:
+          - not_null
+          - unique
+      - name: mapping_status
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['mapped', 'unmapped']
+
+  - name: dim_fuel_category
+    description: Fuel category reference dimension from Ember harmonized records.
+    columns:
+      - name: fuel_category_key
+        tests:
+          - not_null
+          - unique
+      - name: fuel_category
+        tests:
+          - not_null
+          - unique
+
+  - name: dim_source_system
+    description: Source system reference dimension across harmonized intermediate models.
+    columns:
+      - name: source_system_key
+        tests:
+          - not_null
+          - unique
+      - name: source_system
+        tests:
+          - not_null
+          - unique
