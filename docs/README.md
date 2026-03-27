@@ -20,6 +20,9 @@ This index tracks all project documentation artifacts.
 ## Interview preparation
 - 2-Minute Interview Script (v0.1): [interview/2-minute-script-v0.1.md](interview/2-minute-script-v0.1.md)
 - 5-Minute Interview Script (v0.1): [interview/5-minute-script-v0.1.md](interview/5-minute-script-v0.1.md)
+- 2-Minute Interview Script (v0.2): [interview/2-minute-script-v0.2.md](interview/2-minute-script-v0.2.md)
+- 5-Minute Interview Script (v0.2): [interview/5-minute-script-v0.2.md](interview/5-minute-script-v0.2.md)
+- Interview Q&A Companion (v0.2): [interview/interview-qa-v0.2.md](interview/interview-qa-v0.2.md)
 
 ## Standards
 - Technical implementation document is required for every phase.
