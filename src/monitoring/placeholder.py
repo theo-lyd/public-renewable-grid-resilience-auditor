@@ -1,2 +1,5 @@
 def layer_purpose() -> str:
-    return "SLA, drift, and alert dedupe/escalation logic will be implemented in later phases."
+    return (
+        "Phase 10 dashboard narrative cards and smoke validation are implemented in "
+        "dashboard_narrative.py and dashboard_smoke.py."
+    )

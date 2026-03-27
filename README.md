@@ -26,6 +26,10 @@ Public-sector analytics capstone using DuckDB + Parquet to monitor renewable int
 	- `make dbt-marts`
 11. Run baseline forecasting + scenario engine (Phase 9):
 	- `make forecast-phase9`
+12. Run dashboard narrative smoke validation (Phase 10):
+	- `make dashboard-smoke`
+13. Launch stakeholder dashboard (Phase 10):
+	- `make dashboard-run`
 
 Notes:
 - Bronze writes are idempotent by operation key (same request window + params will be skipped if already written).
