@@ -11,6 +11,8 @@ This index tracks all project documentation artifacts.
 - Phase 2 Technical Implementation: [phase-2/technical-implementation.md](phase-2/technical-implementation.md)
 - Phase 3 Source Inventory and API Contracts: [phase-3/source-inventory-and-api-contracts.md](phase-3/source-inventory-and-api-contracts.md)
 - Phase 3 Technical Implementation: [phase-3/technical-implementation.md](phase-3/technical-implementation.md)
+- Phase 4 Raw Ingestion Bronze Jobs: [phase-4/raw-ingestion-bronze-jobs.md](phase-4/raw-ingestion-bronze-jobs.md)
+- Phase 4 Technical Implementation: [phase-4/technical-implementation.md](phase-4/technical-implementation.md)
 
 ## Standards
 - Technical implementation document is required for every phase.

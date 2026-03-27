@@ -1,0 +1,4 @@
+date,country_code,year,fuel_category,generation_twh
+2026-01-01,DE,2026,wind,2.35
+2026-01-01,DE,2026,solar,1.76
+2026-01-01,FR,2026,wind,1.02

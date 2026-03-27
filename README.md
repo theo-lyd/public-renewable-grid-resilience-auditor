@@ -14,6 +14,12 @@ Public-sector analytics capstone using DuckDB + Parquet to monitor renewable int
 	- `make smoke`
 5. Validate source contracts:
 	- `make contracts`
+6. Run mock Bronze ingestion jobs (Phase 4):
+	- `make ingest-mock`
+
+Notes:
+- Bronze writes are idempotent by operation key (same request window + params will be skipped if already written).
+- Live ENTSO-E ingestion requires `ENTSOE_API_KEY` in your local `.env`.
 
 ## Repository layout
 - `data/`: Bronze/Silver/Gold storage roots
