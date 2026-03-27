@@ -17,6 +17,10 @@ This index tracks all project documentation artifacts.
 ## Program-level documents
 - Project Defense and Implementation Playbook: [project-defense-and-implementation-playbook.md](project-defense-and-implementation-playbook.md)
 
+## Interview preparation
+- 2-Minute Interview Script (v0.1): [interview/2-minute-script-v0.1.md](interview/2-minute-script-v0.1.md)
+- 5-Minute Interview Script (v0.1): [interview/5-minute-script-v0.1.md](interview/5-minute-script-v0.1.md)
+
 ## Standards
 - Technical implementation document is required for every phase.
 - Update this index whenever a new documentation file is created.
