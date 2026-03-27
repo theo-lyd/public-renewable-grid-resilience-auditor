@@ -30,6 +30,8 @@ Public-sector analytics capstone using DuckDB + Parquet to monitor renewable int
 	- `make dashboard-smoke`
 13. Launch stakeholder dashboard (Phase 10):
 	- `make dashboard-run`
+14. Run orchestration and monitoring policy checks (Phase 11):
+	- `make monitor-phase11`
 
 Notes:
 - Bronze writes are idempotent by operation key (same request window + params will be skipped if already written).

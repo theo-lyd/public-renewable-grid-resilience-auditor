@@ -2,7 +2,7 @@ PYTHON ?= python3
 PIP ?= $(PYTHON) -m pip
 DBT ?= $(dir $(PYTHON))dbt
 
-.PHONY: bootstrap bootstrap-orchestration lint format test check smoke contracts ingest-open-meteo-mock ingest-ember-mock ingest-entsoe-mock ingest-mock dbt-seed dbt-build-staging dbt-test-staging dbt-staging dbt-build-intermediate dbt-test-intermediate dbt-intermediate dbt-build-dimensions-facts dbt-test-dimensions-facts dbt-dimensions-facts dbt-build-marts dbt-test-marts dbt-marts forecast-phase9 dashboard-smoke dashboard-run
+.PHONY: bootstrap bootstrap-orchestration lint format test check smoke contracts ingest-open-meteo-mock ingest-ember-mock ingest-entsoe-mock ingest-mock dbt-seed dbt-build-staging dbt-test-staging dbt-staging dbt-build-intermediate dbt-test-intermediate dbt-intermediate dbt-build-dimensions-facts dbt-test-dimensions-facts dbt-dimensions-facts dbt-build-marts dbt-test-marts dbt-marts forecast-phase9 dashboard-smoke dashboard-run monitor-phase11
 
 bootstrap:
 	$(PIP) install --upgrade pip
@@ -85,3 +85,6 @@ dashboard-smoke:
 
 dashboard-run:
 	streamlit run reports/dashboards/streamlit_app.py
+
+monitor-phase11:
+	$(PYTHON) -m src.monitoring.phase11_monitoring

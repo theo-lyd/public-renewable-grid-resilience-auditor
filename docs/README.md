@@ -25,6 +25,8 @@ This index tracks all project documentation artifacts.
 - Phase 9 Technical Implementation: [phase-9/technical-implementation.md](phase-9/technical-implementation.md)
 - Phase 10 Dashboard and Narrative: [phase-10/dashboard-and-narrative.md](phase-10/dashboard-and-narrative.md)
 - Phase 10 Technical Implementation: [phase-10/technical-implementation.md](phase-10/technical-implementation.md)
+- Phase 11 Orchestration and Monitoring: [phase-11/orchestration-and-monitoring.md](phase-11/orchestration-and-monitoring.md)
+- Phase 11 Technical Implementation: [phase-11/technical-implementation.md](phase-11/technical-implementation.md)
 
 ## Program-level documents
 - Project Defense and Implementation Playbook: [project-defense-and-implementation-playbook.md](project-defense-and-implementation-playbook.md)
