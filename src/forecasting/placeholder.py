@@ -1,2 +1,2 @@
 def layer_purpose() -> str:
-    return "Baseline forecasting and scenario models will be implemented in later phases."
+    return "Phase 9 forecasting is implemented in baseline.py, scenarios.py, and run_forecast.py."
