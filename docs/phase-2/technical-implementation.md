@@ -96,3 +96,20 @@ python3 -m ruff check src/common/config.py --fix && make check && make smoke
 ## 9) Requirement-to-reality gap log
 - **Potential gap:** Airflow is intentionally split into optional requirements due heavier local setup burden for novice workflow.
 - **Minimal viable path:** Use core stack (`make bootstrap`, `make check`, `make smoke`) now; install orchestration dependencies only when Phase 11 orchestration build starts.
+
+## 10) Problems encountered and resolution log
+
+### Problem P2-01: Lint gate failure during initial validation
+- **Where observed:** `make check`
+- **Root cause:**
+	1. Import ordering in `src/common/config.py` did not match Ruff's canonical import sorting.
+	2. One return string in `src/cleaning/placeholder.py` exceeded line-length rule.
+- **Possible implications if unresolved:**
+	1. CI lint job fails on every push/PR.
+	2. Team confidence and reviewer trust in engineering hygiene decreases.
+	3. Phase progression is blocked because quality gates remain red.
+- **Resolution applied:**
+	1. Wrapped long return line in `src/cleaning/placeholder.py`.
+	2. Applied Ruff auto-fix for import ordering in `src/common/config.py`.
+	3. Re-ran full validation (`make check && make smoke`) and confirmed pass.
+- **Final status:** Resolved.
