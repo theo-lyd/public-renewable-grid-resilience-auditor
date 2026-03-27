@@ -32,5 +32,19 @@ def test_validate_data_classification() -> None:
 
 def test_detect_plaintext_secrets_in_text() -> None:
     findings = detect_plaintext_secrets_in_text("api_key=abc and password=123")
-    assert "api_key=" in findings
-    assert "password=" in findings
+    assert "api_key" in findings
+    assert "password" in findings
+
+
+def test_detect_plaintext_secrets_json_and_spaced_assignment() -> None:
+    findings_json = detect_plaintext_secrets_in_text('{"api_key": "abc"}')
+    findings_spaced = detect_plaintext_secrets_in_text('API_KEY = "abc" and token = 123')
+
+    assert "api_key" in findings_json
+    assert "api_key" in findings_spaced
+    assert "token" in findings_spaced
+
+
+def test_detect_plaintext_secrets_avoids_benign_words() -> None:
+    findings = detect_plaintext_secrets_in_text("tokenization pipeline and secretive tone")
+    assert findings == []

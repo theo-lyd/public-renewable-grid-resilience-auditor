@@ -43,6 +43,24 @@ def test_summarize_late_arrivals() -> None:
     summary = summarize_late_arrivals(records, allowed_lag_hours=24)
     assert summary["record_count"] == 2
     assert summary["late_count"] == 1
+    assert summary["negative_lag_count"] == 0
+    assert summary["max_lag_hours"] == 50.0
+
+
+def test_summarize_late_arrivals_negative_lag_visibility() -> None:
+    records = [
+        {
+            "event_time_utc": "2026-03-26T03:00:00+00:00",
+            "ingestion_time_utc": "2026-03-26T02:00:00+00:00",
+        }
+    ]
+
+    summary = summarize_late_arrivals(records, allowed_lag_hours=0)
+    assert summary["record_count"] == 1
+    assert summary["late_count"] == 0
+    assert summary["negative_lag_count"] == 1
+    assert summary["min_lag_hours"] == -1.0
+    assert summary["max_lag_hours"] == -1.0
 
 
 def test_watermark_round_trip(tmp_path: Path) -> None:
@@ -51,6 +69,15 @@ def test_watermark_round_trip(tmp_path: Path) -> None:
 
     payload = load_watermark(watermark_path)
     assert payload["entsoe_transparency"] == "2026-03-26T03:00:00+00:00"
+
+
+def test_watermark_monotonic_update(tmp_path: Path) -> None:
+    watermark_path = tmp_path / "watermark.json"
+    update_watermark(watermark_path, "entsoe_transparency", "2026-03-26T05:00:00+00:00")
+    update_watermark(watermark_path, "entsoe_transparency", "2026-03-26T04:00:00+00:00")
+
+    payload = load_watermark(watermark_path)
+    assert payload["entsoe_transparency"] == "2026-03-26T05:00:00+00:00"
 
 
 def test_late_against_watermark() -> None:

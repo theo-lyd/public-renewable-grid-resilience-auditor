@@ -34,18 +34,26 @@ def summarize_late_arrivals(
         return {
             "record_count": 0,
             "late_count": 0,
+            "negative_lag_count": 0,
             "late_ratio": 0.0,
+            "min_lag_hours": 0.0,
             "max_lag_hours": 0.0,
         }
 
     late_count = 0
-    max_lag_hours = 0.0
+    negative_lag_count = 0
+    min_lag_hours = float("inf")
+    max_lag_hours = float("-inf")
 
     for record in records:
         event_dt = _parse_iso8601(str(record["event_time_utc"]))
         ingestion_dt = _parse_iso8601(str(record["ingestion_time_utc"]))
         lag_hours = (ingestion_dt - event_dt).total_seconds() / 3600.0
+        min_lag_hours = min(min_lag_hours, lag_hours)
         max_lag_hours = max(max_lag_hours, lag_hours)
+
+        if lag_hours < 0:
+            negative_lag_count += 1
 
         if lag_hours > allowed_lag_hours:
             late_count += 1
@@ -54,7 +62,9 @@ def summarize_late_arrivals(
     return {
         "record_count": record_count,
         "late_count": late_count,
+        "negative_lag_count": negative_lag_count,
         "late_ratio": late_count / record_count,
+        "min_lag_hours": round(min_lag_hours, 2),
         "max_lag_hours": round(max_lag_hours, 2),
     }
 
@@ -68,7 +78,12 @@ def load_watermark(path: Path) -> dict[str, str]:
 
 def update_watermark(path: Path, source_id: str, max_event_time_utc: str) -> dict[str, str]:
     payload = load_watermark(path)
-    payload[source_id] = max_event_time_utc
+    existing_value = payload.get(source_id)
+
+    if existing_value is None or (
+        _parse_iso8601(max_event_time_utc) >= _parse_iso8601(existing_value)
+    ):
+        payload[source_id] = max_event_time_utc
 
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2, sort_keys=True), encoding="utf-8")

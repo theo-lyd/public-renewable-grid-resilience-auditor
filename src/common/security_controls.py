@@ -1,10 +1,15 @@
 from __future__ import annotations
 
 import json
+import re
 from typing import Any
 
 SENSITIVE_KEY_HINTS = ("password", "secret", "token", "api_key", "apikey", "credential")
 DATA_CLASSIFICATIONS = {"public", "internal", "restricted"}
+PLAINTEXT_SECRET_REGEX = re.compile(
+    r"['\"]?(api[_-]?key|token|password|secret)['\"]?\s*[:=]\s*['\"]?[^'\"\s,}]+",
+    flags=re.IGNORECASE,
+)
 
 
 def is_sensitive_key(key: str) -> bool:
@@ -34,21 +39,8 @@ def validate_data_classification(classification: str, public_only: bool = True) 
 
 
 def detect_plaintext_secrets_in_text(content: str) -> list[str]:
-    findings: list[str] = []
-    lowered = content.lower()
-
-    patterns = [
-        "api_key=",
-        "token=",
-        "password=",
-        "secret=",
-    ]
-
-    for pattern in patterns:
-        if pattern in lowered:
-            findings.append(pattern)
-
-    return findings
+    matches = {token.lower().replace("-", "_") for token in PLAINTEXT_SECRET_REGEX.findall(content)}
+    return sorted(matches)
 
 
 def main() -> None:
