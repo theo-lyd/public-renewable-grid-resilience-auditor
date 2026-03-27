@@ -1,7 +1,7 @@
 PYTHON ?= python3
 PIP ?= $(PYTHON) -m pip
 
-.PHONY: bootstrap bootstrap-orchestration lint format test check smoke
+.PHONY: bootstrap bootstrap-orchestration lint format test check smoke contracts
 
 bootstrap:
 	$(PIP) install --upgrade pip
@@ -26,3 +26,6 @@ check: lint test
 
 smoke:
 	$(PYTHON) -m src.ingestion.healthcheck
+
+contracts:
+	$(PYTHON) -m src.ingestion.validate_contracts

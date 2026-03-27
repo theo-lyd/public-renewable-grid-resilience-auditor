@@ -12,6 +12,8 @@ Public-sector analytics capstone using DuckDB + Parquet to monitor renewable int
 	- `make check`
 4. Run smoke check:
 	- `make smoke`
+5. Validate source contracts:
+	- `make contracts`
 
 ## Repository layout
 - `data/`: Bronze/Silver/Gold storage roots

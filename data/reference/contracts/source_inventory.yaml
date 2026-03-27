@@ -1,0 +1,220 @@
+version: "1.0.0"
+project: "public-renewable-grid-resilience-auditor"
+maintainer: "phase-3-source-contracts"
+last_updated_utc: "2026-03-27T00:00:00Z"
+
+sources:
+  - source_id: "entsoe_transparency"
+    name: "ENTSO-E Transparency API"
+    region_scope: "Europe"
+    base_url: "https://web-api.tp.entsoe.eu"
+    auth:
+      type: "api_key"
+      env_var: "ENTSOE_API_KEY"
+      free_tier: true
+    refresh_cadence: "hourly"
+    reliability_tier: "high"
+    endpoints:
+      - endpoint_id: "generation_actual_per_type"
+        path: "/api"
+        method: "GET"
+        response_format: "xml"
+        params:
+          - "documentType=A75"
+          - "processType=A16"
+          - "in_Domain"
+          - "periodStart"
+          - "periodEnd"
+          - "securityToken"
+        required_fields:
+          - name: "timestamp_utc"
+            data_type: "datetime"
+            nullable: false
+            description: "Observation timestamp in UTC"
+          - name: "zone_code"
+            data_type: "string"
+            nullable: false
+            description: "Bidding zone / control area code"
+          - name: "generation_type"
+            data_type: "string"
+            nullable: false
+            description: "Generation technology type"
+          - name: "generation_mw"
+            data_type: "float"
+            nullable: false
+            description: "Instantaneous generation value"
+        quality_rules:
+          - rule_id: "ENTSOE_GEN_NOT_NULL_CORE"
+            severity: "critical"
+            dimension: "completeness"
+            expression: "timestamp_utc, zone_code, generation_type, generation_mw must be non-null"
+          - rule_id: "ENTSOE_GEN_NON_NEGATIVE"
+            severity: "critical"
+            dimension: "validity"
+            expression: "generation_mw >= 0"
+          - rule_id: "ENTSOE_GEN_ZONE_ALLOWED"
+            severity: "warning"
+            dimension: "conformance"
+            expression: "zone_code must exist in reference zone mapping"
+          - rule_id: "ENTSOE_GEN_FRESHNESS_3H"
+            severity: "warning"
+            dimension: "timeliness"
+            expression: "max(timestamp_utc) within last 3 hours"
+        failure_modes:
+          - "HTTP 401/403 due to invalid or missing token"
+          - "HTTP 429 due to request limits"
+          - "Schema drift in XML tags"
+
+      - endpoint_id: "total_load_day_ahead_or_actual"
+        path: "/api"
+        method: "GET"
+        response_format: "xml"
+        params:
+          - "documentType=A65"
+          - "processType=A16"
+          - "outBiddingZone_Domain"
+          - "periodStart"
+          - "periodEnd"
+          - "securityToken"
+        required_fields:
+          - name: "timestamp_utc"
+            data_type: "datetime"
+            nullable: false
+            description: "Observation timestamp in UTC"
+          - name: "zone_code"
+            data_type: "string"
+            nullable: false
+            description: "Bidding zone / control area code"
+          - name: "load_mw"
+            data_type: "float"
+            nullable: false
+            description: "Total load value"
+        quality_rules:
+          - rule_id: "ENTSOE_LOAD_NOT_NULL_CORE"
+            severity: "critical"
+            dimension: "completeness"
+            expression: "timestamp_utc, zone_code, load_mw must be non-null"
+          - rule_id: "ENTSOE_LOAD_NON_NEGATIVE"
+            severity: "critical"
+            dimension: "validity"
+            expression: "load_mw >= 0"
+          - rule_id: "ENTSOE_LOAD_HOURLY_CONTINUITY"
+            severity: "warning"
+            dimension: "consistency"
+            expression: "no unexpected hourly gaps per zone"
+        failure_modes:
+          - "Missing periods for some zones"
+          - "Endpoint latency during peak usage"
+
+  - source_id: "open_meteo"
+    name: "Open-Meteo API"
+    region_scope: "Global"
+    base_url: "https://api.open-meteo.com/v1"
+    auth:
+      type: "none"
+      env_var: ""
+      free_tier: true
+    refresh_cadence: "hourly"
+    reliability_tier: "high"
+    endpoints:
+      - endpoint_id: "historical_forecast_weather"
+        path: "/forecast"
+        method: "GET"
+        response_format: "json"
+        params:
+          - "latitude"
+          - "longitude"
+          - "hourly"
+          - "timezone=UTC"
+          - "past_days"
+          - "forecast_days"
+        required_fields:
+          - name: "time"
+            data_type: "datetime"
+            nullable: false
+            description: "Hourly timestamp"
+          - name: "wind_speed_10m"
+            data_type: "float"
+            nullable: true
+            description: "Wind speed at 10m"
+          - name: "shortwave_radiation"
+            data_type: "float"
+            nullable: true
+            description: "Solar irradiance proxy"
+          - name: "temperature_2m"
+            data_type: "float"
+            nullable: true
+            description: "Near-surface temperature"
+        quality_rules:
+          - rule_id: "OPEN_METEO_TIME_NOT_NULL"
+            severity: "critical"
+            dimension: "completeness"
+            expression: "time must be non-null"
+          - rule_id: "OPEN_METEO_TIME_UTC"
+            severity: "critical"
+            dimension: "conformance"
+            expression: "timestamps must be UTC"
+          - rule_id: "OPEN_METEO_WIND_RANGE"
+            severity: "warning"
+            dimension: "validity"
+            expression: "wind_speed_10m between 0 and 75 m/s"
+          - rule_id: "OPEN_METEO_TEMP_RANGE"
+            severity: "warning"
+            dimension: "validity"
+            expression: "temperature_2m between -80 and 60 C"
+        failure_modes:
+          - "Transient 5xx responses"
+          - "Missing weather variable arrays"
+
+  - source_id: "ember_electricity"
+    name: "Ember Electricity Data"
+    region_scope: "Country-level"
+    base_url: "https://ember-energy.org"
+    auth:
+      type: "none"
+      env_var: ""
+      free_tier: true
+    refresh_cadence: "daily"
+    reliability_tier: "medium"
+    endpoints:
+      - endpoint_id: "national_generation_mix"
+        path: "/data-catalogue"
+        method: "GET"
+        response_format: "csv"
+        params:
+          - "country"
+          - "year"
+          - "metric"
+        required_fields:
+          - name: "date"
+            data_type: "date"
+            nullable: false
+            description: "Observation date"
+          - name: "country_code"
+            data_type: "string"
+            nullable: false
+            description: "Country identifier"
+          - name: "fuel_category"
+            data_type: "string"
+            nullable: false
+            description: "Generation source category"
+          - name: "generation_twh"
+            data_type: "float"
+            nullable: false
+            description: "Generation in TWh at dataset grain"
+        quality_rules:
+          - rule_id: "EMBER_CORE_NOT_NULL"
+            severity: "critical"
+            dimension: "completeness"
+            expression: "date, country_code, fuel_category, generation_twh must be non-null"
+          - rule_id: "EMBER_GEN_NON_NEGATIVE"
+            severity: "critical"
+            dimension: "validity"
+            expression: "generation_twh >= 0"
+          - rule_id: "EMBER_COUNTRY_REFERENCE"
+            severity: "warning"
+            dimension: "conformance"
+            expression: "country_code must exist in ISO country reference table"
+        failure_modes:
+          - "CSV header naming changes"
+          - "Historical backfill revisions"
