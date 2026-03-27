@@ -40,6 +40,11 @@ This index tracks all project documentation artifacts.
 ## Program-level documents
 - Project Defense and Implementation Playbook: [project-defense-and-implementation-playbook.md](project-defense-and-implementation-playbook.md)
 
+## Command references
+- Git Commands Reference: [commands/git-commands.md](commands/git-commands.md)
+- Bash and Shell Commands Reference: [commands/bash-shell-commands.md](commands/bash-shell-commands.md)
+- Make Commands Reference: [commands/make-commands.md](commands/make-commands.md)
+
 ## Interview preparation
 - 2-Minute Interview Script (v0.1): [interview/2-minute-script-v0.1.md](interview/2-minute-script-v0.1.md)
 - 5-Minute Interview Script (v0.1): [interview/5-minute-script-v0.1.md](interview/5-minute-script-v0.1.md)

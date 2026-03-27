@@ -4,6 +4,11 @@ Public-sector analytics capstone using DuckDB + Parquet to monitor renewable int
 ## Documentation
 - Project documentation index: [docs/README.md](docs/README.md)
 
+## Command references
+- Git commands: [docs/commands/git-commands.md](docs/commands/git-commands.md)
+- Bash and shell commands: [docs/commands/bash-shell-commands.md](docs/commands/bash-shell-commands.md)
+- Make commands: [docs/commands/make-commands.md](docs/commands/make-commands.md)
+
 ## Quickstart (Phase 2 baseline)
 1. Create and activate a Python virtual environment.
 2. Install dependencies:
