@@ -1,7 +1,8 @@
 PYTHON ?= python3
 PIP ?= $(PYTHON) -m pip
+DBT ?= $(dir $(PYTHON))dbt
 
-.PHONY: bootstrap bootstrap-orchestration lint format test check smoke contracts ingest-open-meteo-mock ingest-ember-mock ingest-entsoe-mock ingest-mock
+.PHONY: bootstrap bootstrap-orchestration lint format test check smoke contracts ingest-open-meteo-mock ingest-ember-mock ingest-entsoe-mock ingest-mock dbt-build-staging dbt-test-staging dbt-staging
 
 bootstrap:
 	$(PIP) install --upgrade pip
@@ -40,3 +41,11 @@ ingest-entsoe-mock:
 	$(PYTHON) -m src.ingestion.run_bronze_ingestion entsoe --in-domain 10Y1001A1001A83F --period-start-utc 202603260000 --period-end-utc 202603260300 --mock-file data/reference/contracts/samples/entsoe_sample.xml
 
 ingest-mock: ingest-open-meteo-mock ingest-ember-mock ingest-entsoe-mock
+
+dbt-build-staging:
+	DBT_PROFILES_DIR=dbt $(DBT) build --project-dir dbt --select models/staging/**
+
+dbt-test-staging:
+	DBT_PROFILES_DIR=dbt $(DBT) test --project-dir dbt --select models/staging/**,test_type:singular
+
+dbt-staging: dbt-build-staging dbt-test-staging

@@ -1,0 +1,84 @@
+version: 2
+
+models:
+  - name: stg_open_meteo_weather
+    description: Hourly weather covariates standardized from Bronze Open-Meteo ingestion.
+    columns:
+      - name: record_id
+        tests:
+          - not_null
+          - unique
+      - name: timestamp_utc
+        tests:
+          - not_null
+      - name: latitude
+        tests:
+          - not_null
+      - name: longitude
+        tests:
+          - not_null
+
+  - name: stg_ember_generation_mix
+    description: Country-level generation mix standardized from Bronze Ember ingestion.
+    columns:
+      - name: record_id
+        tests:
+          - not_null
+          - unique
+      - name: date
+        tests:
+          - not_null
+      - name: country_code
+        tests:
+          - not_null
+      - name: fuel_category
+        tests:
+          - not_null
+      - name: generation_twh
+        tests:
+          - not_null
+
+  - name: stg_entsoe_generation
+    description: ENTSO-E generation observations standardized from Bronze ingestion.
+    columns:
+      - name: record_id
+        tests:
+          - not_null
+          - unique
+      - name: timestamp_utc
+        tests:
+          - not_null
+      - name: zone_code
+        tests:
+          - not_null
+      - name: generation_mw
+        tests:
+          - not_null
+
+  - name: stg_ingestion_metadata
+    description: Operational metadata for ingestion runs, used for freshness and audit checks.
+    columns:
+      - name: run_id
+        tests:
+          - not_null
+      - name: operation_key
+        tests:
+          - not_null
+      - name: source_id
+        tests:
+          - not_null
+      - name: endpoint_id
+        tests:
+          - not_null
+      - name: requested_at_utc
+        tests:
+          - not_null
+      - name: record_count
+        tests:
+          - not_null
+      - name: status
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['written', 'skipped_existing']

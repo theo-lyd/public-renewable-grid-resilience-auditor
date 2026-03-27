@@ -203,6 +203,11 @@ cython_debug/
 data/raw/parquet/**/*.parquet
 data/processed/parquet/**/*.parquet
 data/processed/*.duckdb
+
+# dbt local artifacts
+dbt/target/
+dbt/logs/
+dbt/.user.yml
 .cursorignore
 .cursorindexingignore
 

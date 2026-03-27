@@ -1,0 +1,18 @@
+version: 2
+
+models:
+  - name: stg_source_freshness_gate
+    description: Timeliness gate by source and endpoint using Bronze ingestion metadata.
+    columns:
+      - name: source_id
+        tests:
+          - not_null
+      - name: endpoint_id
+        tests:
+          - not_null
+      - name: freshness_threshold_hours
+        tests:
+          - not_null
+      - name: is_fresh
+        tests:
+          - not_null

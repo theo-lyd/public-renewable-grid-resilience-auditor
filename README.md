@@ -16,6 +16,8 @@ Public-sector analytics capstone using DuckDB + Parquet to monitor renewable int
 	- `make contracts`
 6. Run mock Bronze ingestion jobs (Phase 4):
 	- `make ingest-mock`
+7. Run dbt staging quality gates (Phase 5):
+	- `make dbt-staging`
 
 Notes:
 - Bronze writes are idempotent by operation key (same request window + params will be skipped if already written).
