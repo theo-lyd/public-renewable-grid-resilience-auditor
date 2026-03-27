@@ -15,6 +15,8 @@ This index tracks all project documentation artifacts.
 - Phase 4 Technical Implementation: [phase-4/technical-implementation.md](phase-4/technical-implementation.md)
 - Phase 5 Staging Models and Quality Gates: [phase-5/staging-models-and-quality-gates.md](phase-5/staging-models-and-quality-gates.md)
 - Phase 5 Technical Implementation: [phase-5/technical-implementation.md](phase-5/technical-implementation.md)
+- Phase 6 Intermediate Harmonization: [phase-6/intermediate-harmonization.md](phase-6/intermediate-harmonization.md)
+- Phase 6 Technical Implementation: [phase-6/technical-implementation.md](phase-6/technical-implementation.md)
 
 ## Program-level documents
 - Project Defense and Implementation Playbook: [project-defense-and-implementation-playbook.md](project-defense-and-implementation-playbook.md)

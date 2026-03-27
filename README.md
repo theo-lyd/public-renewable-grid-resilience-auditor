@@ -18,6 +18,8 @@ Public-sector analytics capstone using DuckDB + Parquet to monitor renewable int
 	- `make ingest-mock`
 7. Run dbt staging quality gates (Phase 5):
 	- `make dbt-staging`
+8. Run intermediate harmonization quality gates (Phase 6):
+	- `make dbt-intermediate`
 
 Notes:
 - Bronze writes are idempotent by operation key (same request window + params will be skipped if already written).

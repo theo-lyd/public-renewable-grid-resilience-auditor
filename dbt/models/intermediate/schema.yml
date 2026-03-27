@@ -1,0 +1,88 @@
+version: 2
+
+models:
+  - name: int_entsoe_generation_hourly
+    description: ENTSO-E generation harmonized to UTC zone-hour grain with MWh unit.
+    columns:
+      - name: zone_hour_key
+        tests:
+          - not_null
+          - unique
+      - name: zone_code
+        tests:
+          - not_null
+      - name: timestamp_hour_utc
+        tests:
+          - not_null
+      - name: generation_mwh
+        tests:
+          - not_null
+      - name: timezone_name
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['UTC']
+
+  - name: int_open_meteo_zone_hourly
+    description: Open-Meteo weather harmonized to UTC zone-hour grain via zone mapping.
+    columns:
+      - name: zone_hour_key
+        tests:
+          - not_null
+      - name: zone_code
+        tests:
+          - not_null
+      - name: timestamp_hour_utc
+        tests:
+          - not_null
+      - name: timezone_name
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['UTC']
+
+  - name: int_ember_generation_hourly
+    description: Ember generation harmonized from TWh daily to MWh hourly with zone mapping.
+    columns:
+      - name: zone_hour_fuel_key
+        tests:
+          - not_null
+          - unique
+      - name: zone_code
+        tests:
+          - not_null
+      - name: timestamp_hour_utc
+        tests:
+          - not_null
+      - name: generation_mwh
+        tests:
+          - not_null
+      - name: unit_name
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['MWh']
+      - name: timezone_name
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['UTC']
+
+  - name: int_zone_hour_conformed
+    description: Zone-hour conformed table joining harmonized generation and weather metrics.
+    columns:
+      - name: zone_hour_key
+        tests:
+          - not_null
+          - unique
+      - name: zone_code
+        tests:
+          - not_null
+      - name: timestamp_hour_utc
+        tests:
+          - not_null
+      - name: timezone_name
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['UTC']

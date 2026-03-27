@@ -2,7 +2,7 @@ PYTHON ?= python3
 PIP ?= $(PYTHON) -m pip
 DBT ?= $(dir $(PYTHON))dbt
 
-.PHONY: bootstrap bootstrap-orchestration lint format test check smoke contracts ingest-open-meteo-mock ingest-ember-mock ingest-entsoe-mock ingest-mock dbt-build-staging dbt-test-staging dbt-staging
+.PHONY: bootstrap bootstrap-orchestration lint format test check smoke contracts ingest-open-meteo-mock ingest-ember-mock ingest-entsoe-mock ingest-mock dbt-seed dbt-build-staging dbt-test-staging dbt-staging dbt-build-intermediate dbt-test-intermediate dbt-intermediate
 
 bootstrap:
 	$(PIP) install --upgrade pip
@@ -42,6 +42,9 @@ ingest-entsoe-mock:
 
 ingest-mock: ingest-open-meteo-mock ingest-ember-mock ingest-entsoe-mock
 
+dbt-seed:
+	DBT_PROFILES_DIR=dbt $(DBT) seed --project-dir dbt --select zone_conformance_mapping
+
 dbt-build-staging:
 	DBT_PROFILES_DIR=dbt $(DBT) build --project-dir dbt --select models/staging/**
 
@@ -49,3 +52,11 @@ dbt-test-staging:
 	DBT_PROFILES_DIR=dbt $(DBT) test --project-dir dbt --select models/staging/**,test_type:singular
 
 dbt-staging: dbt-build-staging dbt-test-staging
+
+dbt-build-intermediate:
+	DBT_PROFILES_DIR=dbt $(DBT) build --project-dir dbt --select models/intermediate/**
+
+dbt-test-intermediate:
+	DBT_PROFILES_DIR=dbt $(DBT) test --project-dir dbt --select models/intermediate/**,test_intermediate*
+
+dbt-intermediate: dbt-seed dbt-build-intermediate dbt-test-intermediate
