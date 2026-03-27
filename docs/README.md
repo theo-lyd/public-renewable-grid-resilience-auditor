@@ -39,6 +39,8 @@ This index tracks all project documentation artifacts.
 
 ## Program-level documents
 - Project Defense and Implementation Playbook: [project-defense-and-implementation-playbook.md](project-defense-and-implementation-playbook.md)
+- System Overview (Brief): [system-overview-brief.md](system-overview-brief.md)
+- System Run Commands and Dashboard Startup: [system-run-commands-and-dashboard.md](system-run-commands-and-dashboard.md)
 
 ## Command references
 - Git Commands Reference: [commands/git-commands.md](commands/git-commands.md)

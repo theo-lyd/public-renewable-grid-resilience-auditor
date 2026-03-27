@@ -3,11 +3,17 @@ Public-sector analytics capstone using DuckDB + Parquet to monitor renewable int
 
 ## Documentation
 - Project documentation index: [docs/README.md](docs/README.md)
+- System overview (brief): [docs/system-overview-brief.md](docs/system-overview-brief.md)
+- System run commands and dashboard startup: [docs/system-run-commands-and-dashboard.md](docs/system-run-commands-and-dashboard.md)
 
 ## Command references
 - Git commands: [docs/commands/git-commands.md](docs/commands/git-commands.md)
 - Bash and shell commands: [docs/commands/bash-shell-commands.md](docs/commands/bash-shell-commands.md)
 - Make commands: [docs/commands/make-commands.md](docs/commands/make-commands.md)
+
+## One-click Startup
+- Full run + dashboard script: [scripts/run_full_system_and_dashboard.sh](scripts/run_full_system_and_dashboard.sh)
+- Desktop launcher file: [Launch-Public-Renewable-Grid-Dashboard.desktop](Launch-Public-Renewable-Grid-Dashboard.desktop)
 
 ## Quickstart (Phase 2 baseline)
 1. Create and activate a Python virtual environment.

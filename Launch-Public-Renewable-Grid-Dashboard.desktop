@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Public Renewable Grid Dashboard
+Comment=Run full pipeline checks and launch the stakeholder dashboard
+Exec=bash -lc 'cd "/workspaces/public-renewable-grid-resilience-auditor" && ./scripts/run_full_system_and_dashboard.sh'
+Path=/workspaces/public-renewable-grid-resilience-auditor
+Terminal=true
+Icon=utilities-terminal
+Categories=Utility;Science;
